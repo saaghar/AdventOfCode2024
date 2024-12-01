@@ -1,17 +1,16 @@
 import fileinput
 
-listone, listtwo = [], []
+list_1, list_2 = [], []
 
 for line in fileinput.input(files='data.txt'):
-    listone.append(int(line.split(None)[0]))
-    listtwo.append(int(line.split(None)[1]))
+    list_1.append(int(line.split(None)[0]))
+    list_2.append(int(line.split(None)[1]))
 
-listone.sort()
-listtwo.sort()
+list_1.sort()
+list_2.sort()
 
-partone = parttwo = 0
-for a in range(len(listone)):
-    partone += abs(listone[a] - listtwo[a])
+part_1 = 0
+for i in range(len(list_1)):
+    part_1 += abs(list_1[i] - list_2[i])
     
-
-print(partone)
+print(part_1)

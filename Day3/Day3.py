@@ -22,10 +22,40 @@ Scan the corrupted memory for uncorrupted mul instructions. What do you get if y
 # multiplication mul(X, Y)
 # X and Y are between 1 to 3 digits 
 
+import re
 import fileinput
-import pandas as pd 
 
-def multiply():
+def calculate_mul_sum_with_fileinput(file_paths: list) -> int:
+    """
+    Läser data från en eller flera filer med `fileinput`,
+    identifierar giltiga `mul(X,Y)` instruktioner och summerar produkterna.
+    
+    Args:
+        file_paths (list): Lista med filvägar som ska läsas.
+    
+    Returns:
+        int: Summan av alla multiplikationer.
+    """
+    # Regex-mönster för giltiga `mul(X,Y)`
+    pattern = r"mul\((\d{1,3}),(\d{1,3})\)"
+    
+    total_sum = 0
+
+    # Läs alla filer rad för rad
     for line in fileinput.input(files='dataDay3.txt'):
+        # Hitta alla matchningar i raden
+        matches = re.findall(pattern, line)
+        
+        # Summera produkterna för matchningar i raden
+        total_sum += sum(int(x) * int(y) for x, y in matches)
+    
+    return total_sum
+
+# Exempelanvändning
+if __name__ == "__main__":
+    file_paths = input("Ange filvägar (kommaseparerade): ").split(",")
+    total = calculate_mul_sum_with_fileinput(file_paths)
+    print(f"Summan av giltiga multiplikationer: {total}")
+
         
 
